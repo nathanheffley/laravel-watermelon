@@ -57,8 +57,8 @@ class SyncService
                         ->where('created_at', '<=', $lastPulledAt)
                         ->where('deleted_at', '>', $lastPulledAt)
                         ->watermelon()
-                        ->get('watermelon_id')
-                        ->pluck('watermelon_id'),
+                        ->get(config('watermelon.identifier'))
+                        ->pluck(config('watermelon.identifier')),
                 ];
             }
         }
@@ -86,7 +86,7 @@ class SyncService
                     })->reduce(function ($assoc, $pair) {
                         list($key, $value) = $pair;
                         if ($key === 'id') {
-                            $assoc['watermelon_id'] = $value;
+                            $assoc[config('watermelon.identifier')] = $value;
                         } else {
                             $assoc[$key] = $value;
                         }
@@ -94,7 +94,7 @@ class SyncService
                     }, collect());
 
                 try {
-                    $model = $class::query()->where('watermelon_id', $create->get('watermelon_id'))->firstOrFail();
+                    $model = $class::query()->where(config('watermelon.identifier'), $create->get(config('watermelon.identifier')))->firstOrFail();
                     $model->update($create->toArray());
                 } catch (ModelNotFoundException) {
                     $class::query()->create($create->toArray());
@@ -116,20 +116,20 @@ class SyncService
                         })->reduce(function ($assoc, $pair) {
                             list($key, $value) = $pair;
                             if ($key === 'id') {
-                                $assoc['watermelon_id'] = $value;
+                                $assoc[config('watermelon.identifier')] = $value;
                             } else {
                                 $assoc[$key] = $value;
                             }
                             return $assoc;
                         }, collect());
 
-                    if ($class::onlyTrashed()->where('watermelon_id', $update->get('watermelon_id'))->count() > 0) {
+                    if ($class::onlyTrashed()->where(config('watermelon.identifier'), $update->get(config('watermelon.identifier')))->count() > 0) {
                         throw new ConflictException;
                     }
 
                     try {
                         $task = $class::query()
-                            ->where('watermelon_id', $update->get('watermelon_id'))
+                            ->where(config('watermelon.identifier'), $update->get(config('watermelon.identifier')))
                             ->watermelon()
                             ->firstOrFail();
                         $task->update($update->toArray());
@@ -154,7 +154,7 @@ class SyncService
             }
 
             collect($request->input("$name.deleted"))->each(function ($delete) use ($class) {
-                $class::query()->where('watermelon_id', $delete)->watermelon()->delete();
+                $class::query()->where(config('watermelon.identifier'), $delete)->watermelon()->delete();
             });
         }
 
