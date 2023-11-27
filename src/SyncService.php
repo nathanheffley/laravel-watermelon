@@ -12,7 +12,7 @@ use NathanHeffley\LaravelWatermelon\Exceptions\ConflictException;
 
 class SyncService
 {
-    protected array $models;
+    protected $models;
 
     public function __construct(array $models)
     {
@@ -96,7 +96,7 @@ class SyncService
                 try {
                     $model = $class::query()->where(config('watermelon.identifier'), $create->get(config('watermelon.identifier')))->firstOrFail();
                     $model->update($create->toArray());
-                } catch (ModelNotFoundException) {
+                } catch (ModelNotFoundException $e) {
                     $class::query()->create($create->toArray());
                 }
             });
@@ -133,16 +133,16 @@ class SyncService
                             ->watermelon()
                             ->firstOrFail();
                         $task->update($update->toArray());
-                    } catch (ModelNotFoundException) {
+                    } catch (ModelNotFoundException $e) {
                         try {
                             $class::query()->create($update->toArray());
-                        } catch (QueryException) {
+                        } catch (QueryException $e) {
                             throw new ConflictException;
                         }
                     }
                 });
             }
-        } catch (ConflictException) {
+        } catch (ConflictException $e) {
             DB::rollBack();
 
             return response()->json('', 409);
