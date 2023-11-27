@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.2"
     },
     "require-dev": {
         "laravel/sail": "^1.9",
