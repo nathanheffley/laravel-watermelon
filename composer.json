@@ -11,11 +11,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "illuminate/database": "^10.13.2",
-        "illuminate/http": "^10.13.2",
-        "illuminate/routing": "^10.13.2",
-        "illuminate/support": "^10.13.2"
+        "php": "^7.2",
     },
     "require-dev": {
         "laravel/sail": "^1.9",
