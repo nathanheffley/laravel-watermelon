@@ -38,7 +38,7 @@ class SyncService
                 ];
             }
         } else {
-            $lastPulledAt = Carbon::createFromTimestampUTC($lastPulledAt);
+            $lastPulledAt = Carbon::createFromTimestamp($lastPulledAt);
 
             foreach ($this->models as $name => $class) {
                 $changes[$name] = [

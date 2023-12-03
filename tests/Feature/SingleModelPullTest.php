@@ -16,7 +16,7 @@ class SingleModelPullTest extends TestCase
     {
         parent::setUp();
 
-        Carbon::setTestNow('2021-08-07 20:00:00');
+        Carbon::setTestNowAndTimezone('2021-08-07 20:00:00', 'EST');
 
         Config::set('watermelon.models', [
             'tasks' => Task::class,
