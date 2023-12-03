@@ -1,6 +1,8 @@
 /vendor
-.env
+.idea
+.phpunit.cache
 .phpunit.result.cache
+.env
 composer.phar
 composer.lock
 phpunit.xml

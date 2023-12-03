@@ -165,6 +165,10 @@ class Task extends Model
 
 If you have PHP and Composer installed on your local machine you should be able to easily run the PHPUnit test suite.
 
+```
+./vendor/bin/phpunit
+```
+
 If you prefer to run the tests within a Docker container, this project includes
 [Laravel Sail](https://laravel.com/docs/8.x/sail).
 
@@ -177,9 +181,9 @@ docker run --rm \
     -w /opt \
     laravelsail/php80-composer:latest \
     composer install --ignore-platform-reqs
-```
 
-To run the test suite:
+docker-compose up -d
+```
 
 ```
 sail exec laravel.test ./vendor/bin/phpunit

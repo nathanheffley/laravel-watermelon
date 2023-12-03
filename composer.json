@@ -18,9 +18,8 @@
         "illuminate/support": "^10.13.2"
     },
     "require-dev": {
-        "laravel/sail": "^1.9",
-        "orchestra/testbench": "^6.19",
-        "phpunit/phpunit": "^9.5"
+        "laravel/sail": "^1.26",
+        "orchestra/testbench": "^8.15"
     },
     "autoload": {
         "psr-4": {
