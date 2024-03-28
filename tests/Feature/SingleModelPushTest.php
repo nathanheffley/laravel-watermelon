@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Tests\models\Task;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SingleModelPushTest extends TestCase
 {
@@ -23,7 +24,7 @@ class SingleModelPushTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_ignores_changes_for_models_not_in_the_watermelon_models_config_array(): void
     {
         $response = $this->json('POST', '/sync', [
@@ -46,7 +47,7 @@ class SingleModelPushTest extends TestCase
         $response->assertNoContent();
     }
 
-    /** @test */
+    #[Test]
     public function it_persists_push_request_changes(): void
     {
         $firstTask = Task::query()->create([
@@ -96,7 +97,7 @@ class SingleModelPushTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_updates_the_record_if_there_is_an_attempt_to_create_an_existing_record(): void
     {
         Task::query()->create([
@@ -134,7 +135,7 @@ class SingleModelPushTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_creates_a_record_if_there_is_an_attempt_to_update_a_non_existent_record(): void
     {
         $response = $this->json('POST', '/sync', [
@@ -162,7 +163,7 @@ class SingleModelPushTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_throw_an_error_if_there_is_an_attempt_to_delete_an_already_deleted_record(): void
     {
         $deletedAt = now()->subMinute();
@@ -186,7 +187,7 @@ class SingleModelPushTest extends TestCase
         $this->assertEquals($deletedAt, $task->fresh()->deleted_at);
     }
 
-    /** @test */
+    #[Test]
     public function it_rolls_back_push_request_changes_if_there_is_an_attempt_to_update_a_deleted_record(): void
     {
         Task::query()->create([

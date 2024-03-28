@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Tests\models\CustomTask as Task;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class CustomWatermelonIDModelPullTest extends TestCase
 {
@@ -25,7 +26,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_no_data_and_no_last_pulled_at_timestamp(): void
     {
         $response = $this->json('GET', '/sync');
@@ -42,7 +43,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_no_data_and_a_null_last_pulled_at_timestamp(): void
     {
         $response = $this->json('GET', '/sync?last_pulled_at=null');
@@ -59,7 +60,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_no_data_and_a_zero_last_pulled_at_timestamp(): void
     {
         $response = $this->json('GET', '/sync?last_pulled_at=0');
@@ -76,7 +77,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_no_changes_and_a_last_pulled_at_timestamp(): void
     {
         $lastPulledAt = now()->subMinutes(10)->timestamp;
@@ -94,7 +95,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_data_and_no_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -141,7 +142,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_data_and_a_null_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -188,7 +189,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_data_and_a_zero_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -235,7 +236,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_data_and_a_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -298,7 +299,7 @@ class CustomWatermelonIDModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_lots_of_deleted_records_and_a_last_pulled_at_timestamp(): void
     {
         Task::query()->create([

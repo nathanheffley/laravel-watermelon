@@ -4,6 +4,7 @@ namespace NathanHeffley\LaravelWatermelon\Tests\Feature;
 
 use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class NoModelPushTest extends TestCase
 {
@@ -14,14 +15,14 @@ class NoModelPushTest extends TestCase
         Config::set('watermelon.models', []);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_push_requests_with_no_models_and_no_data(): void
     {
         $response = $this->json('POST', '/sync');
         $response->assertNoContent();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_push_requests_with_no_models_and_unknown_data(): void
     {
         $response = $this->json('POST', '/sync', [

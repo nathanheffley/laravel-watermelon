@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class NoModelPullTest extends TestCase
 {
@@ -20,7 +21,7 @@ class NoModelPullTest extends TestCase
         Config::set('watermelon.models', []);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_without_models_and_no_last_pulled_at(): void
     {
         $response = $this->json('GET', '/sync');
@@ -31,7 +32,7 @@ class NoModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_without_models_and_null_last_pulled_at(): void
     {
         $response = $this->json('GET', '/sync?last_pulled_at=null');
@@ -42,7 +43,7 @@ class NoModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_without_models_and_zero_last_pulled_at(): void
     {
         $response = $this->json('GET', '/sync?last_pulled_at=0');
@@ -53,7 +54,7 @@ class NoModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_without_models_and_last_pulled_at(): void
     {
         $lastPulledAt = now()->subMinutes(10)->timestamp;

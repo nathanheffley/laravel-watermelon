@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Tests\models\TaskScoped;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ModelAuthorizationTest extends TestCase
 {
@@ -23,7 +24,7 @@ class ModelAuthorizationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_apply_a_models_watermelon_scope_with_no_last_pulled_at_timestamp(): void
     {
         TaskScoped::query()->create([
@@ -69,7 +70,7 @@ class ModelAuthorizationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_apply_a_models_watermelon_scope_with_a_last_pulled_at_timestamp(): void
     {
         TaskScoped::query()->create([
@@ -116,7 +117,7 @@ class ModelAuthorizationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_and_rolls_back_changes_when_trying_to_update_a_model_restricted_by_watermelon_scope(): void
     {
         TaskScoped::query()->create([
@@ -172,7 +173,7 @@ class ModelAuthorizationTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_throw_an_error_but_does_not_delete_a_model_restricted_by_watermelon_scope(): void
     {
         TaskScoped::query()->create([

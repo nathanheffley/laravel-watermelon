@@ -27,7 +27,7 @@ class SyncService
 
         $changes = [];
 
-        if ($lastPulledAt === 'null') {
+        if ($lastPulledAt === null) {
             foreach ($this->models as $name => $class) {
                 $changes[$name] = [
                     'created' => (new $class)::watermelon()

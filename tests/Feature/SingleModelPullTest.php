@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Tests\models\Task;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SingleModelPullTest extends TestCase
 {
@@ -16,14 +17,14 @@ class SingleModelPullTest extends TestCase
     {
         parent::setUp();
 
-        Carbon::setTestNowAndTimezone('2021-08-07 20:00:00', 'EST');
+        Carbon::setTestNow('2021-08-07 20:00:00');
 
         Config::set('watermelon.models', [
             'tasks' => Task::class,
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_no_data_and_no_last_pulled_at_timestamp(): void
     {
         $response = $this->json('GET', '/sync');
@@ -40,7 +41,7 @@ class SingleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_no_data_and_a_null_last_pulled_at_timestamp(): void
     {
         $response = $this->json('GET', '/sync?last_pulled_at=null');
@@ -57,7 +58,7 @@ class SingleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_no_data_and_a_zero_last_pulled_at_timestamp(): void
     {
         $response = $this->json('GET', '/sync?last_pulled_at=0');
@@ -74,7 +75,7 @@ class SingleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_no_changes_and_a_last_pulled_at_timestamp(): void
     {
         $lastPulledAt = now()->subMinutes(10)->timestamp;
@@ -92,7 +93,7 @@ class SingleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_data_and_no_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -139,7 +140,7 @@ class SingleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_data_and_a_null_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -186,7 +187,7 @@ class SingleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_data_and_a_zero_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -233,7 +234,7 @@ class SingleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_data_and_a_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -296,7 +297,7 @@ class SingleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_with_lots_of_deleted_records_and_a_last_pulled_at_timestamp(): void
     {
         Task::query()->create([

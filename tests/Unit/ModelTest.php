@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Traits\Watermelon;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ModelTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_returns_only_the_watermelon_id_by_default()
     {
         $model = new class extends Model {
@@ -28,7 +29,7 @@ class ModelTest extends TestCase
         ], $model->toWatermelonArray());
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_all_watermelon_attributes_along_with_the_id()
     {
         $model = new class extends Model {
@@ -54,7 +55,7 @@ class ModelTest extends TestCase
         ], $model->toWatermelonArray());
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_all_watermelon_attributes_along_with_the_id_pulled_from_customized_column_name()
     {
         Config::set('watermelon.identifier', 'custom_wm_id');

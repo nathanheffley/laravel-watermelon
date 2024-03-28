@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Tests\models\Project;
 use NathanHeffley\LaravelWatermelon\Tests\models\Task;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class MultipleModelPullTest extends TestCase
 {
@@ -25,7 +26,7 @@ class MultipleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_for_multiple_models_without_a_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -68,7 +69,7 @@ class MultipleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_for_multiple_models_with_a_null_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -111,7 +112,7 @@ class MultipleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_for_multiple_models_with_a_zero_last_pulled_at_timestamp(): void
     {
         Task::query()->create([
@@ -154,7 +155,7 @@ class MultipleModelPullTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_respond_to_pull_requests_for_multiple_models_with_a_last_pulled_at_timestamp(): void
     {
         Task::query()->create([

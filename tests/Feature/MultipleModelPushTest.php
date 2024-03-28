@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use NathanHeffley\LaravelWatermelon\Tests\models\Project;
 use NathanHeffley\LaravelWatermelon\Tests\models\Task;
 use NathanHeffley\LaravelWatermelon\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class MultipleModelPushTest extends TestCase
 {
@@ -25,7 +26,7 @@ class MultipleModelPushTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_persists_push_requests_for_multiple_models(): void
     {
         $firstTask = Task::query()->create([
@@ -108,7 +109,7 @@ class MultipleModelPushTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_rolls_back_push_request_changes_for_all_models_when_an_error_is_thrown_for_one_model(): void
     {
         Task::query()->create([
@@ -189,7 +190,7 @@ class MultipleModelPushTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_persists_push_requests_even_when_one_model_of_many_is_missing(): void
     {
         $firstTask = Task::query()->create([
@@ -239,7 +240,7 @@ class MultipleModelPushTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_persists_push_requests_even_when_an_unknown_model_is_encountered_among_many(): void
     {
         $firstTask = Task::query()->create([
